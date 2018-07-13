@@ -23,7 +23,6 @@ namespace MyoSharp.Device
         public RssiEventArgs(IMyo myo, DateTime timestamp, sbyte rssi)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             this.Rssi = rssi;
         }

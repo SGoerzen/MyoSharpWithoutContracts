@@ -25,7 +25,6 @@ namespace MyoSharp.Exceptions
         #region Methods
         public static IMyoErrorHandlerBridge Create()
         {
-            Contract.Ensures(Contract.Result<IMyoErrorHandlerBridge>() != null);
 
             return new MyoErrorHandlerBridge();
         }

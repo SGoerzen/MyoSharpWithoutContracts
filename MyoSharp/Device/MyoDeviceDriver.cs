@@ -29,9 +29,6 @@ namespace MyoSharp.Device
         /// <exception cref="System.ArgumentNullException">The exception that is thrown when the <paramref name="myoDeviceBridge" /> or <paramref name="myoErrorHandlerDriver" /> is <c>null</c>.</exception>
         private MyoDeviceDriver(IntPtr handle, IMyoDeviceBridge myoDeviceBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentException>(handle != IntPtr.Zero, "handle");
-            Contract.Requires<ArgumentNullException>(myoDeviceBridge != null, "myoDeviceBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
 
             _handle = handle;
             _myoDeviceBridge = myoDeviceBridge;
@@ -58,9 +55,6 @@ namespace MyoSharp.Device
         [Obsolete("Please switch to the create method that takes in an IMyoErrorHandlerDriver parameter.")]
         public static IMyoDeviceDriver Create(IntPtr handle, IMyoDeviceBridge myoDeviceBridge)
         {
-            Contract.Requires<ArgumentException>(handle != IntPtr.Zero, "handle");
-            Contract.Requires<ArgumentNullException>(myoDeviceBridge != null, "myoDeviceBridge");
-            Contract.Ensures(Contract.Result<IMyoDeviceDriver>() != null);
 
             return Create(handle, myoDeviceBridge, MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create()));
         }
@@ -76,10 +70,6 @@ namespace MyoSharp.Device
         /// <exception cref="System.ArgumentNullException">The exception that is thrown when the <paramref name="myoDeviceBridge" /> or <paramref name="myoErrorHandlerDriver" /> is <c>null</c>.</exception>
         public static IMyoDeviceDriver Create(IntPtr handle, IMyoDeviceBridge myoDeviceBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentException>(handle != IntPtr.Zero, "handle");
-            Contract.Requires<ArgumentNullException>(myoDeviceBridge != null, "myoDeviceBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
-            Contract.Ensures(Contract.Result<IMyoDeviceDriver>() != null);
 
             return new MyoDeviceDriver(
                 handle, 
@@ -288,12 +278,8 @@ namespace MyoSharp.Device
                 ? _myoDeviceBridge.EventGetEmg32(evt, sensor)
                 : _myoDeviceBridge.EventGetEmg64(evt, sensor);
         }
-
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_handle != IntPtr.Zero);
-            Contract.Invariant(_myoDeviceBridge != null);
         }
         #endregion
     }

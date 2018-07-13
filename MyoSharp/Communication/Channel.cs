@@ -45,9 +45,6 @@ namespace MyoSharp.Communication
         /// </exception>
         private Channel(IChannelDriver channelDriver, string applicationIdentifier, bool autostart)
         {
-            Contract.Requires<ArgumentNullException>(channelDriver != null, "channelDriver");
-            Contract.Requires<ArgumentNullException>(applicationIdentifier != null, "applicationIdentifier");
-            Contract.Requires<ArgumentException>(applicationIdentifier.Length <= 255, "The application identifier cannot be longer than 255 characters.");
 
             _channelDriver = channelDriver;
 
@@ -93,11 +90,8 @@ namespace MyoSharp.Communication
         /// <exception cref="System.InvalidOperationException">Thrown when there is a failure to connect to the Bluetooth hub.</exception>
         public static IChannel Create(IChannelDriver channelDriver)
         {
-            Contract.Requires<ArgumentNullException>(channelDriver != null, "channelDriver");
-            Contract.Ensures(Contract.Result<IChannel>() != null);
 
             var applicationIdentidier = string.Empty;
-            Contract.Assume(applicationIdentidier.Length == 0);
 
             return Create(channelDriver, applicationIdentidier);
         }
@@ -125,10 +119,6 @@ namespace MyoSharp.Communication
         /// <exception cref="System.InvalidOperationException">Thrown when there is a failure to connect to the Bluetooth hub.</exception>
         public static IChannel Create(IChannelDriver channelDriver, string applicationIdentifier)
         {
-            Contract.Requires<ArgumentNullException>(channelDriver != null, "channelDriver");
-            Contract.Requires<ArgumentNullException>(applicationIdentifier != null, "applicationIdentifier");
-            Contract.Requires<ArgumentException>(applicationIdentifier.Length <= 255, "The application identifier cannot be longer than 255 characters.");
-            Contract.Ensures(Contract.Result<IChannel>() != null);
 
             return Create(channelDriver, applicationIdentifier, false);
         }
@@ -157,10 +147,6 @@ namespace MyoSharp.Communication
         /// <exception cref="System.InvalidOperationException">Thrown when there is a failure to connect to the Bluetooth hub.</exception>
         public static IChannel Create(IChannelDriver channelDriver, string applicationIdentifier, bool autostart)
         {
-            Contract.Requires<ArgumentNullException>(channelDriver != null, "channelDriver");
-            Contract.Requires<ArgumentNullException>(applicationIdentifier != null, "applicationIdentifier");
-            Contract.Requires<ArgumentException>(applicationIdentifier.Length <= 255, "The application identifier cannot be longer than 255 characters.");
-            Contract.Ensures(Contract.Result<IChannel>() != null);
 
             return new Channel(channelDriver, applicationIdentifier, autostart);
         }
@@ -252,8 +238,6 @@ namespace MyoSharp.Communication
             MyoEventType eventType, 
             DateTime timestamp)
         {
-            Contract.Requires<ArgumentException>(myoHandle != IntPtr.Zero, "The handle to the Myo must be set.");
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The handle to the event must be set.");
 
             var handler = EventReceived;
             if (handler != null)
@@ -269,8 +253,6 @@ namespace MyoSharp.Communication
         
         private MyoRunHandlerResult HandleEvent(IntPtr userData, IntPtr evt)
         {
-            Contract.Requires<ArgumentException>(userData != IntPtr.Zero, "The handle to the user data must be set.");
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "The handle to the event must be set.");
 
             // check if the event is for us
             if (((GCHandle)userData).Target != this)
@@ -295,7 +277,6 @@ namespace MyoSharp.Communication
             while (!_killEventThread)
             {
                 var userData = (IntPtr)GCHandle.Alloc(this);
-                Contract.Assume(userData != IntPtr.Zero);
 
                 _channelDriver.Run(
                     _handle, 
@@ -303,12 +284,8 @@ namespace MyoSharp.Communication
                     userData);
             }
         }
-
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_handle != IntPtr.Zero);
-            Contract.Invariant(_channelDriver != null);
         }
         #endregion
     }

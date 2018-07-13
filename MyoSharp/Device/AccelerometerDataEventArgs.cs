@@ -25,8 +25,6 @@ namespace MyoSharp.Device
         public AccelerometerDataEventArgs(IMyo myo, DateTime timestamp, Vector3F accelerometerData)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(accelerometerData != null, "accelerometerData");
             
             this.Accelerometer = accelerometerData;
         }

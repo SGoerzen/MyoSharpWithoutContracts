@@ -26,7 +26,6 @@ namespace MyoSharp.Discovery
         /// </exception>
         public PairedEventArgs(IntPtr myoHandle, DateTime timestamp)
         {
-            Contract.Requires<ArgumentException>(myoHandle != IntPtr.Zero, "The handle to the Myp must be set.");
 
             _myoHandle = myoHandle;
             _timestamp = timestamp;
@@ -41,7 +40,6 @@ namespace MyoSharp.Discovery
         {
             get
             {
-                Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return _myoHandle;
             }
@@ -54,13 +52,8 @@ namespace MyoSharp.Discovery
         {
             get { return _timestamp; }
         }
-        #endregion
-
-        #region Methods
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myoHandle != IntPtr.Zero);
         }
         #endregion
     }

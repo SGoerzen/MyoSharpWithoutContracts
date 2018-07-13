@@ -28,9 +28,6 @@ namespace MyoSharp.Poses
         #region Constructors
         protected HeldPose(IMyoEventGenerator myo, TimeSpan interval, IEnumerable<Pose> targetPoses)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentOutOfRangeException>(interval.TotalMilliseconds >= 0, "interval");
-            Contract.Requires<ArgumentNullException>(targetPoses != null, "targetPoses");
 
             _targetPoses = new List<Pose>(targetPoses);
             if (_targetPoses.Contains(Pose.Unknown))
@@ -76,8 +73,6 @@ namespace MyoSharp.Poses
             {
                 var interval = TimeSpan.FromMilliseconds(_timer.Interval);
 
-                Contract.Assume(interval > TimeSpan.Zero);
-
                 return interval;
             }
             
@@ -91,11 +86,8 @@ namespace MyoSharp.Poses
         #region Methods
         public static IHeldPose Create(IMyoEventGenerator myo, Pose targetPose)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Ensures(Contract.Result<IHeldPose>() != null);
 
             var interval = DEFAULT_INTERVAL;
-            Contract.Assume(interval.TotalMilliseconds >= 0);
 
             return Create(
                 myo, 
@@ -105,9 +97,6 @@ namespace MyoSharp.Poses
 
         public static IHeldPose Create(IMyoEventGenerator myo, params Pose[] targetPoses)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(targetPoses != null, "targetPoses");
-            Contract.Ensures(Contract.Result<IHeldPose>() != null);
 
             return Create(
                 myo,
@@ -116,12 +105,8 @@ namespace MyoSharp.Poses
 
         public static IHeldPose Create(IMyoEventGenerator myo, IEnumerable<Pose> targetPoses)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(targetPoses != null, "targetPoses");
-            Contract.Ensures(Contract.Result<IHeldPose>() != null);
 
             var interval = DEFAULT_INTERVAL;
-            Contract.Assume(interval.TotalMilliseconds >= 0);
 
             return Create(
                 myo,
@@ -131,10 +116,6 @@ namespace MyoSharp.Poses
 
         public static IHeldPose Create(IMyoEventGenerator myo, TimeSpan interval, params Pose[] targetPoses)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentOutOfRangeException>(interval.TotalMilliseconds >= 0, "interval");
-            Contract.Requires<ArgumentNullException>(targetPoses != null, "targetPoses");
-            Contract.Ensures(Contract.Result<IHeldPose>() != null);
 
             return Create(
                 myo, 
@@ -144,10 +125,6 @@ namespace MyoSharp.Poses
 
         public static IHeldPose Create(IMyoEventGenerator myo, TimeSpan interval, IEnumerable<Pose> targetPoses)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentOutOfRangeException>(interval.TotalMilliseconds >= 0, "interval");
-            Contract.Requires<ArgumentNullException>(targetPoses != null, "targetPoses");
-            Contract.Ensures(Contract.Result<IHeldPose>() != null);
 
             return new HeldPose(
                 myo, 
@@ -218,7 +195,6 @@ namespace MyoSharp.Poses
 
         protected virtual void OnTriggered(IMyo myo, DateTime timestamp, Pose pose)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             var handler = Triggered;
             if (handler != null)
@@ -230,13 +206,8 @@ namespace MyoSharp.Poses
                 handler.Invoke(this, args);
             }
         }
-
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_timer != null);
-            Contract.Invariant(_targetPoses != null);
-            Contract.Invariant(_myo != null);
         }
         #endregion
 

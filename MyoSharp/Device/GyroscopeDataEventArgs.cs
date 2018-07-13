@@ -24,8 +24,6 @@ namespace MyoSharp.Device
         public GyroscopeDataEventArgs(IMyo myo, DateTime timestamp, Vector3F gyroscopeData)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(gyroscopeData != null, "gyroscopeData");
             
             this.Gyroscope = gyroscopeData;
         }

@@ -24,7 +24,6 @@ namespace MyoSharp.Device
         /// </exception>
         private EmgData(int[] emgData)
         {
-            Contract.Requires<ArgumentNullException>(emgData != null, "emgData");
 
             _emgData = emgData;
         }
@@ -41,8 +40,6 @@ namespace MyoSharp.Device
         /// </exception>
         public static IEmgData Create(int[] emgData)
         {
-            Contract.Requires<ArgumentNullException>(emgData != null, "emgData");
-            Contract.Ensures(Contract.Result<IEmgData>() != null);
             
             return new EmgData(emgData);
         }
@@ -54,11 +51,8 @@ namespace MyoSharp.Device
                 ? 0
                 : _emgData[sensor];
         }
-
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_emgData != null);
         }
         #endregion
     }

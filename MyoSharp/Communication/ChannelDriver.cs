@@ -32,8 +32,6 @@ namespace MyoSharp.Communication
         /// </exception>
         private ChannelDriver(IChannelBridge channelBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
 
             _channelBridge = channelBridge;
             _myoErrorHandlerDriver = myoErrorHandlerDriver;
@@ -52,8 +50,6 @@ namespace MyoSharp.Communication
         [Obsolete("Please switch to the create method that takes in an IMyoErrorHandlerDriver parameter.")]
         public static IChannelDriver Create(IChannelBridge channelBridge)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Ensures(Contract.Result<IChannelDriver>() != null);
 
             return Create(channelBridge, MyoErrorHandlerDriver.Create(MyoErrorHandlerBridge.Create()));
         }
@@ -69,9 +65,6 @@ namespace MyoSharp.Communication
         /// </exception>
         public static IChannelDriver Create(IChannelBridge channelBridge, IMyoErrorHandlerDriver myoErrorHandlerDriver)
         {
-            Contract.Requires<ArgumentNullException>(channelBridge != null, "channelBridge");
-            Contract.Requires<ArgumentNullException>(myoErrorHandlerDriver != null, "myoErrorHandlerDriver");
-            Contract.Ensures(Contract.Result<IChannelDriver>() != null);
 
             return new ChannelDriver(channelBridge, myoErrorHandlerDriver);
         }
@@ -115,8 +108,6 @@ namespace MyoSharp.Communication
                     return MyoCommandResult.Create(result, errorHandle);
                 });
             command.Execute();
-
-            Contract.Assume(hubPointer != IntPtr.Zero);
             return hubPointer;
         }
 
@@ -171,12 +162,8 @@ namespace MyoSharp.Communication
                 ? _channelBridge.EventGetMyo32(evt)
                 : _channelBridge.EventGetMyo64(evt);
         }
-        
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_channelBridge != null);
-            Contract.Invariant(_myoErrorHandlerDriver != null);
         }
         #endregion
     }

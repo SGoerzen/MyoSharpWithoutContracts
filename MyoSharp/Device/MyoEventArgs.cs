@@ -26,7 +26,6 @@ namespace MyoSharp.Device
         /// </exception>
         public MyoEventArgs(IMyo myo, DateTime timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             _myo = myo;
             _timestamp = timestamp;
@@ -41,7 +40,6 @@ namespace MyoSharp.Device
         {
             get
             {
-                Contract.Ensures(Contract.Result<IMyo>() != null);
 
                 return _myo;
             }
@@ -54,13 +52,8 @@ namespace MyoSharp.Device
         {
             get { return _timestamp; }
         }
-        #endregion
-
-        #region Methods
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myo != null);
         }
         #endregion
     }

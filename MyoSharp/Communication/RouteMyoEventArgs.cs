@@ -34,8 +34,6 @@ namespace MyoSharp.Communication
             MyoEventType eventType, 
             DateTime timestamp)
         {
-            Contract.Requires<ArgumentException>(myoHandle != IntPtr.Zero, "myoHandle");
-            Contract.Requires<ArgumentException>(evt != IntPtr.Zero, "evt");
             
             _myoHandle = myoHandle;
             _eventHandle = evt;
@@ -52,7 +50,6 @@ namespace MyoSharp.Communication
         {
             get
             {
-                Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return _myoHandle;
             }
@@ -65,7 +62,6 @@ namespace MyoSharp.Communication
         {
             get
             {
-                Contract.Ensures(Contract.Result<IntPtr>() != IntPtr.Zero);
 
                 return _eventHandle;
             }
@@ -80,14 +76,8 @@ namespace MyoSharp.Communication
         /// Gets the timestamp of the event.
         /// </summary>
         public DateTime Timestamp { get; private set; }
-        #endregion
-
-        #region Methods
-        [ContractInvariantMethod]
         private void ObjectInvariant()
         {
-            Contract.Invariant(_myoHandle != IntPtr.Zero);
-            Contract.Invariant(_eventHandle != IntPtr.Zero);
         }
         #endregion
     }

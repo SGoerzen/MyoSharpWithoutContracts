@@ -24,7 +24,6 @@ namespace MyoSharp.Device
         #region Methods
         public static IMyoDeviceBridge Create()
         {
-            Contract.Ensures(Contract.Result<IMyoDeviceBridge>() != null);
 
             return new MyoDeviceBridge();
         }

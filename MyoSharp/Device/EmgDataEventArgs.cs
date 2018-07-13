@@ -23,8 +23,6 @@ namespace MyoSharp.Device
         public EmgDataEventArgs(IMyo myo, DateTime timestamp, IEmgData emgData)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
-            Contract.Requires<ArgumentNullException>(emgData != null, "emgData");
 
             this.EmgData = emgData;
         }

@@ -25,7 +25,6 @@ namespace MyoSharp.Device
         public PoseEventArgs(IMyo myo, DateTime timestamp, Pose pose)
             : base(myo, timestamp)
         {
-            Contract.Requires<ArgumentNullException>(myo != null, "myo");
 
             this.Pose = pose;
         }
