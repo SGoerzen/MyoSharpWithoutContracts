@@ -4,3 +4,6 @@
 *.csproj.user
 *.csproj.FileListAbsolute.txt
 MyoSharp/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+packages/CodeContractsRemover.1.0.5/CodeContractsRemover.1.0.5.nupkg
+packages/CodeContractsRemover.1.0.5/tools/code_contracts_remover.exe
+packages/CodeContractsRemover.1.0.5/tools/code_contracts_remover.xml
