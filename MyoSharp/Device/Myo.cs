@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+
 
 using MyoSharp.Math;
 using MyoSharp.Poses;

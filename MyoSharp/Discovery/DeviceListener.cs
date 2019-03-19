@@ -2,7 +2,7 @@
 
 using MyoSharp.Device;
 using MyoSharp.Communication;
-using System.Diagnostics.Contracts;
+
 
 namespace MyoSharp.Discovery
 {

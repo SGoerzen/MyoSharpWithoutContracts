@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.Contracts;
+﻿
 
 namespace MyoSharp.Commands
 {
